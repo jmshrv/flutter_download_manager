@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 
 import 'models.dart';
@@ -7,18 +8,26 @@ class Database {
 
   Database._(this._isar);
 
-  static Future<Database> init(String dbPath) async {
+  static Future<Database> init(
+      {required String dbPath, bool test = false}) async {
+    if (test) {
+      await Isar.initializeIsarCore(download: true);
+    }
+
     final isar = await Isar.open(
-      schemas: [DownloadSchema],
+      schemas: [DownloadSchema, DownloadGroupSchema],
       directory: dbPath,
-      inspector: true,
+      inspector: !test && kDebugMode,
     );
 
     return Database._(isar);
   }
 
   Future<void> add(Download download) async {
-    await _isar.writeTxn(
-        (isar) async => download.id = await isar.downloads.put(download));
+    await _isar.writeTxn((isar) async => await isar.downloads.put(download));
+  }
+
+  Future<Download?> get(int id) async {
+    return await _isar.txn<Download?>((isar) => isar.downloads.get(id));
   }
 }

@@ -31,8 +31,6 @@ dependencies:
     sdk: flutter
   flutter_download_manager:
     path: ../
-  isar: ^2.5.0
-  isar_flutter_libs: ^2.5.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -42,8 +40,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  isar_generator: ^2.5.0
-  build_runner: ^2.1.11
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

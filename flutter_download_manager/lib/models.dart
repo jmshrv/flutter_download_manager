@@ -15,15 +15,16 @@ class UriConverter extends TypeConverter<Uri, String> {
 /// An item to be downloaded
 @Collection()
 class Download {
-  final int id = Isar.autoIncrement;
+  int id = Isar.autoIncrement;
 
   /// The URL path where the file is to be downloaded. Note that this is not an
   /// absolute path which Flutter can natively handle.
   @UriConverter()
   final Uri urlPath;
 
-  /// Extra metadata that may be required.
-  final Map extraData = {};
+  /// Extra metadata that may be required. It's probably a good idea to use JSON
+  /// here.
+  final String? extraData;
 
   /// Whether or not the file was explicitly downloaded. If true, the download
   /// will not be culled when it has no groups/downloads that depend on it.
@@ -39,15 +40,31 @@ class Download {
   Download({
     required this.urlPath,
     this.isExplicit = true,
+    this.extraData,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Download &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          urlPath == other.urlPath &&
+          extraData == other.extraData &&
+          isExplicit == other.isExplicit;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ urlPath.hashCode ^ extraData.hashCode ^ isExplicit.hashCode;
 }
 
 @Collection()
 class DownloadGroup {
-  final int id = Isar.autoIncrement;
+  int id = Isar.autoIncrement;
 
-  /// Extra metadata that may be required.
-  final Map extraData = {};
+  /// Extra metadata that may be required. It's probably a good idea to use JSON
+  /// here.
+  final String? extraData;
 
   /// Whether or not the group was explicitly downloaded. If true, the group
   /// will not be culled when it has no groups/downloads that depend on it.
@@ -60,5 +77,6 @@ class DownloadGroup {
 
   DownloadGroup({
     this.isExplicit = true,
+    this.extraData,
   });
 }
