@@ -14,4 +14,6 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
+      working-directory: ./flutter_download_manager
     - run: flutter test -j 1
+      working-directory: ./flutter_download_manager
