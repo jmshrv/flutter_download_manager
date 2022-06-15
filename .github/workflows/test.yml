@@ -13,5 +13,6 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'stable'
+    - working-directory: './flutter_download_manager'
     - run: flutter pub get
     - run: flutter test -j 1
