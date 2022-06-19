@@ -725,14 +725,22 @@ extension GetDownloadGroupCollection on Isar {
 const DownloadGroupSchema = CollectionSchema(
   name: 'DownloadGroup',
   schema:
-      '{"name":"DownloadGroup","idName":"id","properties":[{"name":"extraData","type":"String"},{"name":"isExplicit","type":"Bool"}],"indexes":[],"links":[{"name":"children","target":"Download"}]}',
+      '{"name":"DownloadGroup","idName":"id","properties":[{"name":"extraData","type":"String"},{"name":"isExplicit","type":"Bool"}],"indexes":[],"links":[{"name":"dependencies","target":"Download"},{"name":"dependenciesGroups","target":"DownloadGroup"}]}',
   idName: 'id',
   propertyIds: {'extraData': 0, 'isExplicit': 1},
   listProperties: {},
   indexIds: {},
   indexValueTypes: {},
-  linkIds: {'children': 0, 'dependedByGroups': 1},
-  backlinkLinkNames: {'dependedByGroups': 'children'},
+  linkIds: {
+    'dependencies': 0,
+    'dependenciesGroups': 1,
+    'dependedBy': 2,
+    'dependedByGroups': 3
+  },
+  backlinkLinkNames: {
+    'dependedBy': 'dependencies',
+    'dependedByGroups': 'dependenciesGroups'
+  },
   getId: _downloadGroupGetId,
   setId: _downloadGroupSetId,
   getLinks: _downloadGroupGetLinks,
@@ -759,7 +767,12 @@ void _downloadGroupSetId(DownloadGroup object, int id) {
 }
 
 List<IsarLinkBase> _downloadGroupGetLinks(DownloadGroup object) {
-  return [object.children, object.dependedByGroups];
+  return [
+    object.dependencies,
+    object.dependenciesGroups,
+    object.dependedBy,
+    object.dependedByGroups
+  ];
 }
 
 void _downloadGroupSerializeNative(
@@ -853,7 +866,10 @@ P _downloadGroupDeserializePropWeb<P>(Object jsObj, String propertyName) {
 
 void _downloadGroupAttachLinks(
     IsarCollection col, int id, DownloadGroup object) {
-  object.children.attach(col, col.isar.downloads, 'children', id);
+  object.dependencies.attach(col, col.isar.downloads, 'dependencies', id);
+  object.dependenciesGroups
+      .attach(col, col.isar.downloadGroups, 'dependenciesGroups', id);
+  object.dependedBy.attach(col, col.isar.downloads, 'dependedBy', id);
   object.dependedByGroups
       .attach(col, col.isar.downloadGroups, 'dependedByGroups', id);
 }
@@ -1104,12 +1120,30 @@ extension DownloadGroupQueryFilter
 
 extension DownloadGroupQueryLinks
     on QueryBuilder<DownloadGroup, DownloadGroup, QFilterCondition> {
-  QueryBuilder<DownloadGroup, DownloadGroup, QAfterFilterCondition> children(
+  QueryBuilder<DownloadGroup, DownloadGroup, QAfterFilterCondition>
+      dependencies(FilterQuery<Download> q) {
+    return linkInternal(
+      isar.downloads,
+      q,
+      'dependencies',
+    );
+  }
+
+  QueryBuilder<DownloadGroup, DownloadGroup, QAfterFilterCondition>
+      dependenciesGroups(FilterQuery<DownloadGroup> q) {
+    return linkInternal(
+      isar.downloadGroups,
+      q,
+      'dependenciesGroups',
+    );
+  }
+
+  QueryBuilder<DownloadGroup, DownloadGroup, QAfterFilterCondition> dependedBy(
       FilterQuery<Download> q) {
     return linkInternal(
       isar.downloads,
       q,
-      'children',
+      'dependedBy',
     );
   }
 
