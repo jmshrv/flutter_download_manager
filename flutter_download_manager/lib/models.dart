@@ -30,11 +30,14 @@ class Download {
   /// will not be culled when it has no groups/downloads that depend on it.
   bool isExplicit;
 
+  final dependencies = IsarLinks<Download>();
+
   @Backlink(to: "dependencies")
   final dependedBy = IsarLinks<Download>();
 
-  final dependencies = IsarLinks<Download>();
+  final dependenciesGroups = IsarLinks<DownloadGroup>();
 
+  @Backlink(to: "dependenciesGroups")
   final dependedByGroups = IsarLinks<DownloadGroup>();
 
   Download({

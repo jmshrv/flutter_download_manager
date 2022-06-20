@@ -1,8 +1,8 @@
 # This is a generated file; do not edit or check into version control.
-isar_flutter_libs=/home/james/.pub-cache/hosted/pub.dartlang.org/isar_flutter_libs-3.0.0-dev.0/
-path_provider=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11/
-path_provider_android=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.14/
-path_provider_ios=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.9/
-path_provider_linux=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
-path_provider_macos=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.6/
-path_provider_windows=/home/james/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.7/
+isar_flutter_libs=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/isar_flutter_libs-3.0.0-dev.0/
+path_provider=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11/
+path_provider_android=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.14/
+path_provider_ios=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.10/
+path_provider_linux=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
+path_provider_macos=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.6/
+path_provider_windows=/Users/james/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.7/
